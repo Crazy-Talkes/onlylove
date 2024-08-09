@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>css-3d旋转</title>
+    <link rel="stylesheet" href="../css/index.css" />
+</head>
+
+<body>
+
+    <canvas id="canvas"></canvas>
+
+
+    <!--/*外层最大容器*/-->
+    <div class="wrap">
+
+        <!-- /*包裹所有元素的容器*/-->
+        <div class="cube">
+            <!--前面图片 -->
+            <div class="out_front">
+                <img src="../img/8.jpg" class="pic" />
+            </div>
+            <!--后面图片 -->
+            <div class="out_back">
+                <img src="../img/9.jpg" class="pic" />
+            </div>
+            <!--左图片 -->
+            <div class="out_left">
+                <img src="../img/10.jpg" class="pic" />
+            </div>
+            <div class="out_right">
+                <img src="../img/11.jpg" class="pic" />
+            </div>
+            <div class="out_top">
+                <img src="../img/12.jpg" class="pic" />
+            </div>
+            <div class="out_bottom">
+                <img src="../img/7.jpg" class="pic" />
+            </div>
+            <!--小正方体 -->
+            <span class="in_front">
+                <img src="../img/6.jpg" class="in_pic" />
+            </span>
+            <span class="in_back">
+                <img src="../img/5.jpg" class="in_pic" />
+            </span>
+            <span class="in_left">
+                <img src="../img/4.jpg" class="in_pic" />
+            </span>
+            <span class="in_right">
+                <img src="../img/3.jpg" class="in_pic" />
+            </span>
+            <span class="in_top">
+                <img src="../img/2.jpg" class="in_pic" />
+            </span>
+            <span class="in_bottom">
+                <img src="../img/1.jpg" class="in_pic" />
+            </span>
+        </div>
+    </div>
+
+
+    <style type="text/css">
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            z-index: -999;
+        }
+    </style>
+    <script type="text/javascript">
+        var canvas = document.getElementById('canvas');
+        var ctx = canvas.getContext('2d');
+
+
+        canvas.height = window.innerHeight;
+        canvas.width = window.innerWidth;
+
+        var texts = 'I LOVE U'.split('');
+
+        var fontSize = 16;
+        var columns = canvas.width / fontSize;
+        // 用于计算输出文字时坐标，所以长度即为列数
+        var drops = [];
+        //初始值
+        for (var x = 0; x < columns; x++) {
+            drops[x] = 1;
+        }
+
+        function draw() {
+            //让背景逐渐由透明到不透明
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            //文字颜色
+            ctx.fillStyle = '#f584b7';
+            ctx.font = fontSize + 'px arial';
+            //逐行输出文字
+            for (var i = 0; i < drops.length; i++) {
+                var text = texts[Math.floor(Math.random() * texts.length)];
+                ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+
+                if (drops[i] * fontSize > canvas.height || Math.random() > 0.95) {
+                    drops[i] = 0;
+                }
+
+                drops[i]++;
+            }
+        }
+        setInterval(draw, 33);
+    </script>
+</body>
+
+</html>
